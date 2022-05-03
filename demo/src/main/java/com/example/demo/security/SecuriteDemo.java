@@ -48,7 +48,7 @@ public class SecuriteDemo extends WebSecurityConfigurerAdapter {
                 .and()
                     .csrf().disable()
                     .authorizeRequests()
-                    .antMatchers("/connexion","/inscription").permitAll()
+                    .antMatchers("/connexion","/inscription","/liste-utilisateur").permitAll()
                     //.antMatchers("/supprimer-utilisateur/**").hasRole("SUPPRIME_UTILISATEUR")
                     .antMatchers("/admin/**").hasRole("ADMIN")
                     .antMatchers("/**").hasAnyRole("USER","ADMIN")

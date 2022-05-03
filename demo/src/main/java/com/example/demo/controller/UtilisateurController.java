@@ -24,8 +24,6 @@ import java.util.Optional;
 @RestController
 public class UtilisateurController {
 
-    private UtilisateurDao utilisateurDao;
-
     @Autowired
     private JwtUtils jwtUtils;
 
@@ -38,10 +36,13 @@ public class UtilisateurController {
     @Autowired
     private PasswordEncoder encoder;
 
+    private UtilisateurDao utilisateurDao;
+
     @Autowired
     public UtilisateurController(UtilisateurDao utilisateurDao) {
         this.utilisateurDao = utilisateurDao;
     }
+
 
 
 

@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 public class JwtUtils {
 
@@ -22,7 +25,13 @@ public class JwtUtils {
 
     public String generateToken(UserDetails userDetails) {
 
+        UserDetailsDemo userDetailsDemo = (UserDetailsDemo) userDetails;
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("id", userDetailsDemo.getUtilisateur().getId());
+
         return Jwts.builder()
+                .setClaims(data)
                 .setSubject(userDetails.getUsername())
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();

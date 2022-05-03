@@ -21,7 +21,6 @@ public class Materiel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonView({VueMarque.class, VueMateriel.class, VueReservation.class })
-    @Column(name = "ID_Materiel")
     private Integer id;
 
     @Column(unique = true)
