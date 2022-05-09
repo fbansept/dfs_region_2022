@@ -45,7 +45,7 @@ public class UserDetailsDemo implements UserDetails {
         }
 
         //----GESTION DES DROITS PAR TABLE ROLE (MANY TO ONE)----
-        //listeAuthority.add(new SimpleGrantedAuthority(this.utilisateur.getRole()));
+        //listeAuthority.add(new SimpleGrantedAuthority(this.utilisateur.getRole().getNom()));
 
         //----GESTION DES DROITS PAR TABLE ROLE AVEC DROITS ASSOCIES ----
         /*for(Role ro : this.utilisateur.getListeRole()){
