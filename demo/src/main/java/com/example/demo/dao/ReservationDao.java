@@ -12,6 +12,11 @@ import java.util.Optional;
 @Repository
 public interface ReservationDao extends JpaRepository<Reservation, CleReservation> {
 
+    //SELECT *
+    // FROM emprunteur
+    // WHERE emprunter_id = :EmprunteurId
+    // AND materiel_id = :MaterielId
+    // AND date = :Date
     Optional<Reservation> findByEmprunteurIdAndMaterielIdAndDate(
             Integer emprunteurId,
             Integer materielId,

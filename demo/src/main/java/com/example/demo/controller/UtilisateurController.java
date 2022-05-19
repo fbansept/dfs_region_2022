@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dao.UtilisateurDao;
+import com.example.demo.model.Marque;
 import com.example.demo.model.Role;
 import com.example.demo.model.Utilisateur;
 import com.example.demo.security.JwtUtils;
@@ -15,10 +16,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.math.BigInteger;
+import java.util.*;
 
 @CrossOrigin
 @RestController
@@ -71,13 +70,13 @@ public class UtilisateurController {
 
 
     @PostMapping("/connexion")
-    public String connexion(@RequestBody Utilisateur utilisateur) throws Exception {
+    public Map<String,String> connexion(@RequestBody Utilisateur utilisateur) throws Exception {
 
         try {
 
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            utilisateur.getNom(),
+                            utilisateur.getEmail(),
                             utilisateur.getMotDePasse()
                     )
             );
@@ -85,17 +84,41 @@ public class UtilisateurController {
             throw new Exception(e);
         }
 
-        UserDetails userDetails = userDetailsServiceDemo
-                .loadUserByUsername(utilisateur.getNom());
+        UserDetailsDemo userDetails = userDetailsServiceDemo
+                .loadUserByUsername(utilisateur.getEmail());
 
-        return jwtUtils.generateToken(userDetails);
+        Map<String,String> retour = new HashMap<>();
+        retour.put("token", jwtUtils.generateToken(userDetails));
+
+        return retour;
 
     }
 
     @GetMapping("/liste-utilisateur")
     public List<Utilisateur> listeUtilisateur () {
 
-        return this.utilisateurDao.findAll();
+        List<Map<String, Object>> requete = utilisateurDao.selectUtilisateur();
+
+        List<Utilisateur> listeUtilisateur = new ArrayList<>();
+
+        for( Map<String, Object> ligneResultat : requete){
+
+            Utilisateur utilisateur = new Utilisateur();
+
+            int id = (int)ligneResultat.get("id");
+            String nom = (String)ligneResultat.get("nom");
+            String prenom = (String)ligneResultat.get("prenom");
+            String moDePasse = (String)ligneResultat.get("mot_de_passe");
+
+            utilisateur.setId(id);
+            utilisateur.setNom(nom);
+            utilisateur.setPrenom(prenom);
+            utilisateur.setMotDePasse(moDePasse);
+
+            listeUtilisateur.add(utilisateur);
+        }
+
+        return utilisateurDao.findAll();
     }
 
     @GetMapping("/utilisateur-par-nom/{nom}")
@@ -120,11 +143,16 @@ public class UtilisateurController {
     }
 
     @DeleteMapping("/utilisateur/{id}")
-    public String deleteUtilisateur(@PathVariable int id){
+    public ResponseEntity<Utilisateur> deleteUtilisateur(@PathVariable int id){
 
-        this.utilisateurDao.deleteById(id);
+        Optional<Utilisateur> utilisateurAsupprimer = utilisateurDao.findById(id);
 
-        return "ok";
+        if(utilisateurAsupprimer.isPresent()){
+            utilisateurDao.deleteById(id);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.noContent().build();
+        }
     }
 
 }

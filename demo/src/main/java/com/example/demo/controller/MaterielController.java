@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dao.MaterielDao;
+import com.example.demo.model.Marque;
 import com.example.demo.model.Materiel;
 import com.example.demo.view.VueMateriel;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -31,6 +32,8 @@ public class MaterielController {
     @GetMapping("/materiel/{id}")
     @JsonView(VueMateriel.class)
     public Materiel materiel(@PathVariable Integer id) {
+
+        List<Materiel> marque = materielDao.trouveParMarque("DELL");
 
         return this.materielDao.findById(id).orElse(null);
 

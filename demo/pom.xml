@@ -69,8 +69,32 @@
 		</dependency>
 	</dependencies>
 
+	<profiles>
+		<profile>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<id>Local</id>
+			<properties>
+				<secret-jwt>azerty123</secret-jwt>
+				<adresse-bdd>localhost:3307</adresse-bdd>
+				<nom-bdd>spring_cda_2022</nom-bdd>
+				<nom-utilisateur-bdd>root</nom-utilisateur-bdd>
+				<mot-de-passe-utilisateur-bdd></mot-de-passe-utilisateur-bdd>
+			</properties>
+
+		</profile>
+
+	</profiles>
+
 
 	<build>
+		<resources>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,16 +24,18 @@ public class JwtUtils {
                 .getBody();
     }
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(UserDetailsDemo userDetailsDemo) {
 
-        UserDetailsDemo userDetailsDemo = (UserDetailsDemo) userDetails;
+        //UserDetailsDemo userDetailsDemo = (UserDetailsDemo) userDetails;
 
         Map<String, Object> data = new HashMap<>();
         data.put("id", userDetailsDemo.getUtilisateur().getId());
+        data.put("email", userDetailsDemo.getUtilisateur().getEmail());
 
         return Jwts.builder()
                 .setClaims(data)
-                .setSubject(userDetails.getUsername())
+                //.setExpiration(new Date())
+                .setSubject(userDetailsDemo.getUsername())
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }
@@ -41,6 +44,6 @@ public class JwtUtils {
 
         Claims claims = getTokenBody(token);
 
-        return claims.getSubject().equals(userDetails.getUsername());
+        return /*claims.getExpiration().before(new Date()) &&*/ claims.getSubject().equals(userDetails.getUsername());
     }
 }

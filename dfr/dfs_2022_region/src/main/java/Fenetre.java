@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Fenetre extends JFrame {
 
@@ -14,9 +16,7 @@ public class Fenetre extends JFrame {
         this.setContentPane(panneau);
         panneau.add(bouton);
 
-        Evenement evenement = new Evenement();
-
-        bouton.addActionListener(evenement);
+        bouton.addActionListener(e -> System.out.println("clic"));
 
         this.setVisible(true);
     }

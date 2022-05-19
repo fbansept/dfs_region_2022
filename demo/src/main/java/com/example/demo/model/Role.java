@@ -21,7 +21,4 @@ public class Role {
     private String nom;
 
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
 }

@@ -3,10 +3,10 @@ INSERT INTO role (id, nom) VALUES
 (2,'ROLE_REDACTEUR'),
 (3,'ROLE_ADMIN');
 
-INSERT INTO utilisateur (id, prenom, nom, mot_de_passe) VALUES
-(1, 'franky', 'bansept', '$2a$10$AUz7WdRb8HukUyhZ4sFfHOFCY5ik2plVgyswIGLNdMicqKQOEhExO'),
-(2, 'john', 'doe', '$2a$10$AUz7WdRb8HukUyhZ4sFfHOFCY5ik2plVgyswIGLNdMicqKQOEhExO'),
-(3, 'steeve', 'smith', '$2a$10$AUz7WdRb8HukUyhZ4sFfHOFCY5ik2plVgyswIGLNdMicqKQOEhExO');
+INSERT INTO utilisateur (id, prenom, nom,email, mot_de_passe) VALUES
+(1, 'franky', 'bansept', 'toto@toto.com', '$2a$10$AUz7WdRb8HukUyhZ4sFfHOFCY5ik2plVgyswIGLNdMicqKQOEhExO'),
+(2, 'john', 'doe', 'tata@tata.com', '$2a$10$AUz7WdRb8HukUyhZ4sFfHOFCY5ik2plVgyswIGLNdMicqKQOEhExO'),
+(3, 'steeve', 'smith', 'titi@titi.com', '$2a$10$AUz7WdRb8HukUyhZ4sFfHOFCY5ik2plVgyswIGLNdMicqKQOEhExO');
 
 INSERT INTO role_utilisateur (utilisateur_id, role_id) VALUES
 (1,1),

@@ -33,6 +33,9 @@ public class Utilisateur
 //    @Setter(AccessLevel.NONE)
     private String motDePasse;
 
+
+    private String email;
+
 //    @JsonView(VueReservation.class)
 //    private boolean admin;
 
